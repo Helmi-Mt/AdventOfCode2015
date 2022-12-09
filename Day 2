@@ -1,0 +1,61 @@
+const listInput2 = input.split('\n')// each input is '5x48x8'
+function wrappingForGift(inputWord){
+    let wrapOneGift = 0;
+    let giftDimension = inputWord.split('x');
+    let c = [].concat(giftDimension);
+    let S1 = 2*c[0]*c[1], S2 = 2*c[1]*c[2], S3 = 2*c[2]*c[0];
+    let minSurfaceWrap;
+    if(S1>=S2){
+        if(S2>S3){
+            minSurfaceWrap = S3;
+        }else{
+            minSurfaceWrap = S2;
+        }
+    }else{
+        if(S1>S3){
+            minSurfaceWrap = S3;
+        }else{
+            minSurfaceWrap = S1;
+        }
+    }
+    wrapOneGift = S1+S2+S3+ minSurfaceWrap/2;
+    return wrapOneGift;
+}
+function wrapAllGifts(listInput2){
+    let wrapAllGifts = 0;
+    for (let i = 0; i < listInput2.length; i++) {
+        wrapAllGifts += wrappingForGift(listInput2[i]);
+    }
+    return wrapAllGifts;
+}// 1586300 the good answer
+
+// part 2
+function ribbonOneGift(inputWord){
+    let ribbonOneGift = 0;
+    let giftDimension = inputWord.split('x');
+    let c = [].concat(giftDimension);
+    let R1 = 2*(+c[0]+ +c[1]), R2 = 2*(+c[1]+ +c[2]), R3 = 2*(+c[2]+ +c[0]);
+    let minSurfaceWrap;
+    if(R1>=R2){
+        if(R2>R3){
+            minSurfaceWrap = R3;
+        }else{
+            minSurfaceWrap = R2;
+        }
+    }else{
+        if(R1>R3){
+            minSurfaceWrap = R3;
+        }else{
+            minSurfaceWrap = R1;
+        }
+    }
+    ribbonOneGift = minSurfaceWrap + c[0]*c[1]*c[2];
+    return ribbonOneGift;
+}
+function ribbonAllGift(listInput2){
+    let ribbonAllGifts = 0;
+    for (let i = 0; i < listInput2.length; i++) {
+        ribbonAllGifts += ribbonOneGift(listInput2[i]);
+    }
+    return ribbonAllGifts;
+} // 3737498 the good answer
