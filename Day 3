@@ -1,0 +1,116 @@
+let listInput3 = input3.split('');
+function listTranslateMove(listInput3){
+    let position = [0,0];
+    let listMovement = [[0,0]];
+    
+    for (let i = 0; i < listInput3.length; i++) {
+        if((listInput3[i] == '>')){
+            position[0]++;
+        }else if(listInput3[i] == '<'){
+            position[0]--;
+        }else if(listInput3[i] == '^'){
+            position[1]++;
+        }else if(listInput3[i] == 'v'){
+            position[1]--;
+        }
+
+        listMovement.push([position[0],position[1]]);
+    }
+    return listMovement;
+}
+let listOfPosition = listTranslateMove(listInput3);
+function sortListOfListsX(lst){
+    // let result = [];
+    for (let i = 0; i < lst.length; i++) {
+        // let minXP = lst[i];
+        for (let j = i+1; j < lst.length; j++) {
+            if(lst[j][0]<lst[i][0]){
+                let c = lst[i];
+                lst[i] = lst[j];
+                lst[j] = c;
+                
+            }
+            
+        }
+
+
+        
+    }
+
+}
+function sortYAfterX(listOfPosition){
+    let lst = [].concat(listOfPosition);
+    for (let i = 0; i < lst.length; i++) {
+        // let minXP = lst[i];
+        for (let j = i+1; j < lst.length; j++) {
+            if(lst[j][0]==lst[i][0]){
+                if(lst[j][1]<lst[i][1]){
+                    let c = lst[i];
+                    lst[i] = lst[j];
+                    lst[j] = c;
+
+                }
+               
+                
+            }
+            
+        }
+
+
+        
+    }
+    return lst;
+}
+function removeDuplicants(listOrdered){
+    let lst = [].concat(listOrdered);
+    let result = [lst[0]];
+    // for (let i = 0; i < lst.length-1; i++) {
+    //     if(lst[i][0] == lst[i+1][0]){
+    //         if(lst[i][1]== lst[i+1][1]){
+    //             lst.splice(i+1,1);
+    //         }
+    //     }
+        
+    // }
+    for (let i = 1; i < lst.length; i++) {
+        if((result[result.length-1][0] != lst[i][0]) || (result[result.length-1][1] != lst[i][1]) ){
+            result.push(lst[i]);
+        }
+        
+    }
+    return result;
+}// 2572 the good answer
+
+// part 2 : Santa and roboSanta
+function inputSanta(listInput3){
+    let result = [];
+    for (let i = 0; i < listInput3.length; i++) {
+        if(i%2 == 0){
+            result.push(listInput3[i]);
+        }
+        
+    }
+    return result;
+}
+function inputRoboSanta(listInput3){
+    let result = [];
+    for (let i = 0; i < listInput3.length; i++) {
+        if(i%2 != 0){
+            result.push(listInput3[i]);
+        }
+        
+    }
+    return result;
+}
+let inputSanta1 = inputSanta(listInput3);
+let inputRoboSanta1 = inputRoboSanta(listInput3);
+let listOfPositionSanta = listTranslateMove(inputSanta1);
+let listOfPositionRobo = listTranslateMove(inputRoboSanta1);
+let listSantaAndRobo = listOfPositionSanta.concat(listOfPositionRobo);
+function noDuplicList(listSantaAndRobo){
+    let lst = [].concat(listSantaAndRobo);
+    sortListOfListsX(lst);
+    let lst1 = sortYAfterX(lst);
+    let lst2 = removeDuplicants(lst1);
+    return lst2.length;
+} // 2631 the correct answer
